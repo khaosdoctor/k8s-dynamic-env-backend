@@ -1,0 +1,4 @@
+apiVersion: v2
+name: ship-manager
+description: Chart for the ship manager app
+version: 0.1.0

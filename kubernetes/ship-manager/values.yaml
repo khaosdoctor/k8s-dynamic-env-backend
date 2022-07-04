@@ -1,0 +1,7 @@
+registryName:
+imageTag:
+dbName: ship-manager
+dnsZone:
+imageName: ship-manager-backend
+ingress:
+  hostname:
