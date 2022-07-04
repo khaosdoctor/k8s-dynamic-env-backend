@@ -20,7 +20,7 @@ export const config = {
   server: {
     binding: {
       ip: env.get('SERVER_BINDING_IP', '0.0.0.0'),
-      port: env.get.int('PORT', 3000)
+      port: env.get.int('SERVER_BINDING_PORT', 3000)
     }
   }
 }
