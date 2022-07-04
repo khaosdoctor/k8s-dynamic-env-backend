@@ -3,8 +3,8 @@ FROM node:18-alpine AS builder
 ENV DEBUG expresso:*
 
 WORKDIR /app
-COPY ["./package.json", "./package-lock.json", "/app/"]
-COPY ["./src", "./tsconfig.json", "/app/"]
+COPY ["./package.json", "./package-lock.json", "./tsconfig.json", "/app/"]
+COPY ["./src", "/app/src/"]
 
 RUN npm i
 RUN npm run build
