@@ -1,0 +1,15 @@
+services:
+  database:
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  api:
+    build: backend
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_MONGODB_URI=mongodb://mongo:27017/ship-manager
+      - DATABASE_MONGODB_DBNAME=ship-manager
+    depends_on:
+      - database
