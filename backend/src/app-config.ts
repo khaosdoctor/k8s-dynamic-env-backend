@@ -1,6 +1,7 @@
 import env from 'sugar-env'
 const core = require('../package.json')
 
+const version = env.get('VERSION') || core.version
 export const config = {
   cors: {
     exposedHeaders: ['x-content-range']
@@ -12,9 +13,14 @@ export const config = {
     }
   },
   environment: {
-    name: core.name,
-    type: env.get('NODE_ENV', 'development'),
-    version: env.get('VERSION') || core.version,
-    bindingPort: env.get.int('PORT', 3000)
+    type: env.get('NODE_ENV', 'development')
+  },
+  name: `Ship API (${version})`,
+  version,
+  server: {
+    binding: {
+      ip: env.get('SERVER_BINDING_IP', '0.0.0.0'),
+      port: env.get.int('PORT', 3000)
+    }
   }
 }
