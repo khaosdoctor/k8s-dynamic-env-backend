@@ -42,7 +42,7 @@
     "@irontitan/paradox": "2.11.4",
     "bson-objectid": "2.0.3",
     "express-rescue": "1.1.31",
-    "mongodb": "3.1.10",
+    "mongodb": "3.1.13",
     "sugar-env": "1.5.14"
   }
 }
