@@ -1,0 +1,40 @@
+name: Auto remove created environments upon branch deletion
+
+on:
+  workflow_dispatch:
+  delete:
+    branches-ignore:
+      - 'main'
+      - 'master'
+
+jobs:
+  delete:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set env
+        id: tags
+        run: |
+          export REF=${{github.event.ref}}
+          echo tag=${REF#refs/heads/} >> $GITHUB_ENV
+
+      - name: Install Helm
+        uses: Azure/setup-helm@v1
+        with:
+          version: v3.3.1
+
+      - name: Get AKS Credentials
+        uses: Azure/aks-set-context@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          # Resource group name
+          resource-group: ship-manager-pipeline
+          # AKS cluster name
+          cluster-name: ship-manager
+
+      - name: Run Helm Delete
+        run: |
+          helm delete --namespace test-${{env.tag}} ship-manager-${{env.tag}}
+          kubectl delete ns test-${{env.tag}}
