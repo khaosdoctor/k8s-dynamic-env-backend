@@ -2,15 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ship-manager-backend
+  labels:
+    app: ship-manager-backend
+    version: {{.Values.imageTag}}
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: ship-manager-backend
+      version: {{.Values.imageTag}}
   template:
     metadata:
       labels:
         app: ship-manager-backend
+        version: {{.Values.imageTag}}
     spec:
       containers:
         - image: {{ required "Registry is required" .Values.registryName }}/{{ required "Image name is required" .Values.imageName }}:{{ required "Image tag is required" .Values.imageTag }}
@@ -27,19 +32,24 @@ spec:
               name: http
           env:
             - name: DATABASE_MONGODB_URI
-              value: "mongodb://ship-manager-database:27017/{{ .Values.dbName }}"
+              {{ if eq .Values.deployType "development" }}value: "mongodb://ship-manager-database:27017/{{ .Values.dbName }}"{{end}}
+              {{ if eq .Values.deployType "production" }}value: {{required "The CosmosDB connection is required" .Values.cosmosDbConnection | quote}}{{end}}
             - name: DATABASE_MONGODB_DBNAME
-              value: {{ default "ship-manager" .Values.dbName }}
+              value: {{ default "ship-manager" .Values.dbName | quote }}
             - name: VERSION
-              value: {{ default "latest" .Values.imageTag }}
+              value: {{ default "latest" .Values.imageTag | quote }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: ship-manager-backend
+  labels:
+    app: ship-manager-backend
+    version: {{.Values.imageTag}}
 spec:
   selector:
     app: ship-manager-backend
+    version: {{.Values.imageTag}}
   ports:
     - name: http
       port: 80
@@ -49,6 +59,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ship-manager-backend
+  labels:
+    app: ship-manager-backend
+    version: {{.Values.imageTag}}
   annotations:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:

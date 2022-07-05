@@ -15,6 +15,7 @@ set -x
 sudo az aks install-cli >/dev/null &
 
 az group create -l eastus -n $RG >/dev/null
+az cosmosdb create --kind MongoDB -n $RESOURCENAME -g $RG >/dev/null &
 az acr create -n $ACR --sku Basic -g $RG >/dev/null
 az acr update -n $ACR --admin-enabled true >/dev/null
 
