@@ -30,9 +30,9 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           # Resource group name
-          resource-group: ship-manager-pipeline
+          resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
           # AKS cluster name
-          cluster-name: ship-manager
+          cluster-name: ${{ secrets.AZURE_CLUSTER_NAME }}
 
       - name: Run Helm Delete
         run: |

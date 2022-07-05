@@ -65,9 +65,9 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           # Resource group name
-          resource-group: ship-manager-pipeline
+          resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
           # AKS cluster name
-          cluster-name: ship-manager
+          cluster-name: ${{ secrets.AZURE_CLUSTER_NAME }}
 
       - name: Run Helm Deploy
         run: |
@@ -77,7 +77,8 @@ jobs:
             --install \
             --create-namespace \
             --namespace production \
-            --set global.registryName=${{ secrets.ACR_NAME }} \
-            --set global.dbConn="${{ secrets.DB_CONNECTION }}" \
-            --set global.dnsZone=${{ secrets.DNS_NAME }} \
-            --set global.imageTag=${{env.tag}}
+            --set registryName=${{ secrets.ACR_NAME }} \
+            --set cosmosDbConnection="${{ secrets.DB_CONNECTION }}" \
+            --set dnsZone=${{ secrets.DNS_NAME }} \
+            --set imageTag=${{env.tag}} \
+            --set deployType=production
