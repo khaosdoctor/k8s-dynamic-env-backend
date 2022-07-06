@@ -37,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           # Docker repository to tag the image with
-          tags: ${{ secrets.ACR_NAME }}/${{ env.IMAGE_NAME }}:${{env.tag}}
+          tags: ${{ secrets.ACR_NAME }}/${{ env.IMAGE_NAME }}:${{github.sha}}
           labels: |
             image.revision=${{github.sha}}
           file: backend/Dockerfile
