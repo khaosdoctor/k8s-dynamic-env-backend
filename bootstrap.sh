@@ -6,23 +6,28 @@ then
   exit 1
 fi
 
-RG="ship-manager-pipeline"
-RESOURCENAME="ship-manager"
-ACR="shipmanager"
+UUID=$RANDOM
+RG="ship-manager-api-demo-$UUID"
+RESOURCENAME="ship-manager-$UUID"
+ACR="shipmanager$UUID"
 
 set -x
 
-sudo az aks install-cli >/dev/null &
+if ! command -v kubectl &> /dev/null
+then
+  sudo az aks install-cli >/dev/null
+fi
 
 az group create -l eastus -n $RG >/dev/null
-az cosmosdb create --kind MongoDB -n $RESOURCENAME -g $RG >/dev/null &
+az cosmosdb create --kind MongoDB --enable-free-tier -n $RESOURCENAME -g $RG >/dev/null &
 az acr create -n $ACR --sku Basic -g $RG >/dev/null
 az acr update -n $ACR --admin-enabled true >/dev/null
 
 az aks create -n $RESOURCENAME -g $RG \
 -a http_application_routing \
---attach-acr $ACR \
+-l southcentralus \
 -s Standard_B2s \
+--attach-acr $ACR \
 --generate-ssh-keys \
 -c 2 >/dev/null
 
