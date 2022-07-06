@@ -75,12 +75,12 @@ jobs:
       - name: Run Helm Deploy
         run: |
           helm upgrade \
-            ship-manager-${$GITHUB_REF_NAME} \
+            ship-manager-${{env.tag}} \
             ./kubernetes/ship-manager \
             --install \
             --create-namespace \
-            --namespace test-${$GITHUB_REF_NAME} \
+            --namespace test-${{env.tag}} \
             --set registryName=${{ secrets.ACR_NAME }} \
             --set dnsZone=${{ secrets.DNS_NAME }} \
             --set backend.ingress.hostname=ship-manager-${$GITHUB_REF_NAME} \
-            --set imageTag=${$GITHUB_REF_NAME}
+            --set imageTag=${{env.tag}}
