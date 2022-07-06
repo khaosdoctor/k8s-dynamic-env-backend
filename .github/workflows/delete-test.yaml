@@ -26,9 +26,12 @@ jobs:
           version: v3.3.1
 
       - name: Get AKS Credentials
-        uses: Azure/aks-set-context@v1
+        uses: Azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{  secrets.AZURE_CREDENTIALS }}
+
+      - uses: Azure/aks-set-context@v2
+        with:
           # Resource group name
           resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
           # AKS cluster name
