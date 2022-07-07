@@ -37,7 +37,7 @@ set +x
 
 SUBSCRIPTION_ID=$(az account show --query \"[?isDefault].id\" -o tsv)
 ACR_PASSWORD=$(az acr credential show -n $ACR --query "passwords[0].value" -o tsv)
-AZURE_CREDENTIALS=$(az ad sp create-for-rbac --name "$RESOURCENAME" --role contributor --scopes /subscriptions/"$SUBSCRIPTION_ID"/resourceGroups/$RG --sdk-auth)
+AZURE_CREDENTIALS=$(az ad sp create-for-rbac --role contributor --scopes /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG --sdk-auth)
 DB_CONNECTION=$(az cosmosdb keys list -n $RESOURCENAME -g $RG --type connection-strings --query "connectionStrings[0].connectionString")
 DNS_NAME=$(az aks show -n $RESOURCENAME -g $RG --query "addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName")
 
