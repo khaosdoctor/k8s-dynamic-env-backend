@@ -82,5 +82,5 @@ jobs:
             --namespace test-${{env.tag}} \
             --set registryName=${{ secrets.ACR_NAME }} \
             --set dnsZone=${{ secrets.DNS_NAME }} \
-            --set backend.ingress.hostname=ship-manager-${{env.tag}} \
+            --set ingress.hostname=ship-manager-${{env.tag}} \
             --set imageTag=${{env.tag}}
