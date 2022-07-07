@@ -55,11 +55,6 @@ jobs:
         id: tags
         run: echo tag=${GITHUB_REF#refs/tags/} >> $GITHUB_ENV
 
-      - name: Install Helm
-        uses: Azure/setup-helm@v1
-        with:
-          version: v3.3.1
-
       - name: Get AKS Credentials
         uses: Azure/login@v1
         with:
@@ -71,6 +66,11 @@ jobs:
           resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
           # AKS cluster name
           cluster-name: ${{ secrets.AZURE_CLUSTER_NAME }}
+
+      - name: Install Helm
+        uses: Azure/setup-helm@v1
+        with:
+          version: v3.3.1
 
       - name: Run Helm Deploy
         run: |
