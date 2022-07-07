@@ -1,9 +1,0 @@
-registryName:
-imageTag:
-cosmosDbConnection:
-dbName: ship-manager
-dnsZone:
-imageName: ship-manager
-ingress:
-  hostname:
-deployType: development
