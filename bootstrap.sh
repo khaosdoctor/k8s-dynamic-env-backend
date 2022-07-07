@@ -35,7 +35,7 @@ az aks get-credentials -n $RESOURCENAME -g $RG --admin
 
 set +x
 
-SUBSCRIPTION_ID=$(az account show --query \"[?isDefault].id\" -o tsv)
+SUBSCRIPTION_ID=$(az account show --query id -o tsv)
 ACR_PASSWORD=$(az acr credential show -n $ACR --query "passwords[0].value" -o tsv)
 AZURE_CREDENTIALS=$(az ad sp create-for-rbac --role contributor --scopes /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG --sdk-auth)
 DB_CONNECTION=$(az cosmosdb keys list -n $RESOURCENAME -g $RG --type connection-strings --query "connectionStrings[0].connectionString")
