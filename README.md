@@ -18,7 +18,15 @@ This project is a simple harbor control application to track ships. It consists 
 
 #### Running stand alone
 
-__Back End__: Created with TypeScript. Just go into the directory, type `npm install` to install all dependencies and then `npm run build:start` to run the app or `npm run start:debug` to start in debug mode (TypeScript watch and logging). You can also build the image from the Dockerfile in the same directory
+Created with TypeScript.
+
+- Just go into the directory, type `npm install` to install all dependencies
+- Then `npm run build:start` to run the app or `npm run start:debug` to start in debug mode (TypeScript watch and logging).
+- Create a copy of the `.env.example` file and rename it to `.env`
+- Change the default values of the variables to match your environment
+- Install [direnv](https://direnv.net/) to automatically set the environment variables, run `direnv allow .` in the root directory
+
+You can also build the image from the Dockerfile in the same directory with `docker-compose up`
 
 ### Environment Variables
 
