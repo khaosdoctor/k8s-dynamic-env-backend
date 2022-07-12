@@ -80,7 +80,7 @@ jobs:
             --install \
             --create-namespace \
             --namespace test-${{env.tag}} \
-            --set registryName=${{ secrets.ACR_NAME }} \
-            --set dnsZone=${{ secrets.DNS_NAME }} \
-            --set ingress.hostname=ship-manager-${{env.tag}} \
-            --set imageTag=${{env.tag}}
+            --set registryName='${{ secrets.ACR_NAME }}' \
+            --set dnsZone='${{ secrets.DNS_NAME }}' \
+            --set ingress.hostname='ship-manager-${{env.tag}}' \
+            --set imageTag='${{env.tag}}'

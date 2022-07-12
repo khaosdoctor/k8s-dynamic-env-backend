@@ -80,8 +80,8 @@ jobs:
             --install \
             --create-namespace \
             --namespace production \
-            --set registryName=${{ secrets.ACR_NAME }} \
+            --set registryName='${{ secrets.ACR_NAME }}' \
             --set cosmosDbConnection="${{ secrets.DB_CONNECTION }}" \
-            --set dnsZone=${{ secrets.DNS_NAME }} \
-            --set imageTag=${{env.tag}} \
-            --set deployType=production
+            --set dnsZone='${{ secrets.DNS_NAME }}' \
+            --set imageTag='${{env.tag}}' \
+            --set deployType='production'
