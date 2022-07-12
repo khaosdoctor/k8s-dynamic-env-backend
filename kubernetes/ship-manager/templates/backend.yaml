@@ -19,6 +19,7 @@ spec:
       containers:
         - image: {{ required "Registry is required" .Values.registryName }}/{{ required "Image name is required" .Values.imageName }}:{{ required "Image tag is required" .Values.imageTag }}
           name: ship-manager-backend
+          imagePullPolicy: Always
           resources:
             requests:
               cpu: 100m
